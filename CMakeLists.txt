@@ -8,6 +8,8 @@ add_executable(
     ${PROJECT_NAME}
     src/vector.cpp
     src/plane.cpp
+    src/image.cpp
+    src/texture.cpp
     src/main.cpp
 )
 

@@ -1,6 +1,8 @@
 
 #include "vector.hpp"
 #include "plane.hpp"
+#include "image.hpp"
+#include "texture.hpp"
 
 #include <stdio.h>
 #include <stdint.h>
@@ -12,8 +14,13 @@
 #define WinWidth 640
 #define WinHeight 480
 
-int main (int ArgCount, char **Args)
-{
+int main (int ArgCount, char **Args) {
+
+    src::Image img;
+
+    img.load_bmp("../res/hello.bmp");
+
+    return 0;
 
     unsigned int WindowFlags = SDL_WINDOW_OPENGL;
     SDL_Window * Window = SDL_CreateWindow("OpenGL Test", 0, 0, WinWidth, WinHeight, WindowFlags);
