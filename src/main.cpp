@@ -44,8 +44,21 @@ int main (int ArgCount, char **Args)
         }
 
         glViewport(0, 0, WinWidth, WinHeight);
-        glClearColor(1.f, 0.f, 1.f, 0.f);
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        glOrtho(0.0f, WinWidth, WinHeight, 0.0f, -1.0f, 1.0f);
+
+        glClearColor(1.f, 1.f, 1.f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT);
+        
+        glTranslatef(0.0f, 0.0f, 0.0f);
+        glBegin(GL_QUADS);
+        glColor3f(1.0f, 0.0f, 0.0f);
+        glVertex2i(100, 100);
+        glVertex2i(200, 100);
+        glVertex2i(200, 200);
+        glVertex2i(100, 200);
+        glEnd();
 
         SDL_GL_SwapWindow(Window);
     }
