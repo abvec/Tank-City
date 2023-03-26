@@ -314,13 +314,3 @@ namespace src {
     }
 
 }; /* namespace src */
-
-#include <iostream>
-
-int main () {
-    
-    src::Plane2D plane(src::Vector2D(-1,1),src::Vector2D(1,-1));
-    std::cout << plane << std::endl;
-    std::cout << plane.translate(src::Vector2D(2,2)) << std::endl;
-    return 0;
-}
