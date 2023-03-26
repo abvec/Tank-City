@@ -167,26 +167,47 @@ namespace src {
     constexpr Vector2D Vector2D::normalized ( ) const {
         return (this)->operator/((this)->length());
     }
+
+    constexpr float Vector2D::dot ( Vector2D const & a ) const {
+        return (this)->x * a.x + (this)->y * a.y;
+    }
+
+    constexpr Vector2D Vector2D::rotate ( float const & rad ) const {
+        float const cs = std::cos(rad);
+        float const sn = std::sin(rad);
+        return Vector2D((this)->x*cs-(this)->y*sn,(this)->x*sn+(this)->y*cs);
+    }
+
+    constexpr Vector2D Vector2D::rotate ( Vector2D const & other, float const & rad ) const {
+        float const cs = std::cos(rad);
+        float const sn = std::sin(rad);
+        Vector2D const dec = (*this) - other;
+        return Vector2D(dec.x*cs-dec.y*sn,dec.x*sn+dec.y*cs) + other;
+    }
+
+    constexpr Vector2D & Vector2D::rotated ( float const & rad ) {
+        float const cs = std::cos(rad);
+        float const sn = std::sin(rad);
+        return (*this)=Vector2D((this)->x*cs-(this)->y*sn,(this)->x*sn+(this)->y*cs);
+    }
+
+    constexpr Vector2D & Vector2D::rotated ( Vector2D const & other, float const & rad ) {
+        return ((*this) -= other).rotated(rad)+=other;
+    }
     
+    constexpr Vector2D Vector2D::abs ( ) const {
+        return Vector2D(std::abs((this)->x),std::abs((this)->y));
+    }
+
+    constexpr float Vector2D::angle ( Vector2D const & other ) const {
+        return acos((this)->dot(other));
+    }
+
+    constexpr float Vector2D::project ( Vector2D const & other ) const {
+        return (this)->dot(other)/((this)->length() * 2);
+    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    std::ostream & operator << ( std::ostream &os, const Vector2D & p ) {
+    std::ostream & operator << ( std::ostream &os, Vector2D const & p ) {
         return os << '[' << p.x << ',' << p.y << ']';
     }
 
