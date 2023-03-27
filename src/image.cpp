@@ -19,6 +19,7 @@ namespace src {
         char header[54];
         file.read(header,54);
 
+        uint32_t offset = *(uint32_t*)(header + 10);
         (this)->width  = *(int32_t*)(header+18);
         (this)->height = *(int32_t*)(header+22);
         (this)->bpp    = *(int16_t*)(header+28);
@@ -27,10 +28,11 @@ namespace src {
             return Image::LoadError::BAD_BPP;
         }
 
-        uint32_t const num_pixels = (this)->bpp / 8 * (this)->width * (this)->height;
         (this)->pixels = new char[num_pixels];
 
-        file.seekg(54,file.beg);
+        std::cout << num_pixels << std::endl;
+
+        file.seekg(offset,file.beg);
         file.read((this)->pixels,num_pixels);
         file.close();
 

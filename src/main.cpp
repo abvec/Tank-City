@@ -27,8 +27,14 @@ int main (int ArgCount, char **Args) {
     src::Texture texture;
     texture.create(img);
     img.destroy();
-
-    std::cout << texture.texture << std::endl;
+    
+    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glViewport(0, 0, WinWidth, WinHeight);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0.0f, WinWidth, WinHeight, 0.0f, -1.0f, 1.0f);
 
     int Running = 1;
 
@@ -53,25 +59,30 @@ int main (int ArgCount, char **Args) {
             }
         }
 
-        glViewport(0, 0, WinWidth, WinHeight);
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        glOrtho(0.0f, WinWidth, WinHeight, 0.0f, -1.0f, 1.0f);
+
         glClearColor(1.f, 1.f, 1.f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT);
-        glBindTexture(GL_TEXTURE_2D, texture.texture);
         glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, texture.texture);
         glTranslatef(0.0f, 0.0f, 0.0f);
         glBegin(GL_QUADS);
+        
         glColor3f(1.0f, 1.0f, 1.0f);
-        glTexCoord2f(0,1);
-        glVertex2i(0, 0);
-        glTexCoord2f(1,1);
-        glVertex2i(WinWidth, 0);
-        glTexCoord2f(1,0);
-        glVertex2i(WinWidth, WinHeight);
-        glTexCoord2f(0,0);
-        glVertex2i(0, WinHeight);
+        glTexCoord2f(0.0f,0.2f);
+        glVertex2f(512.0f, 50.0f);
+        
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTexCoord2f(0.1f,0.2f);
+        glVertex2f(1024.0f,50.0f);
+        
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTexCoord2f(0.1f,0.0f);
+        glVertex2f(1024.0f, 562.0f);
+        
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTexCoord2f(0.0f,0.0f);
+        glVertex2f(512.0f, 562.0f);
+        
         glEnd();
 
         SDL_GL_SwapWindow(Window);
