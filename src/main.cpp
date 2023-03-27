@@ -4,6 +4,7 @@
 #include "image.hpp"
 #include "texture.hpp"
 
+#include <iostream>
 #include <stdio.h>
 #include <stdint.h>
 #include <assert.h>
@@ -11,21 +12,23 @@
 #include "SDL_opengl.h"
 #include <GL/gl.h>
 
-#define WinWidth 640
-#define WinHeight 480
+#define WinWidth 1720
+#define WinHeight 720
 
 int main (int ArgCount, char **Args) {
 
-    src::Image img;
-
-    img.load_bmp("../res/hello.bmp");
-
-    return 0;
-
-    unsigned int WindowFlags = SDL_WINDOW_OPENGL;
+    unsigned int WindowFlags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
     SDL_Window * Window = SDL_CreateWindow("OpenGL Test", 0, 0, WinWidth, WinHeight, WindowFlags);
     assert(Window);
     SDL_GLContext Context = SDL_GL_CreateContext(Window);
+
+    src::Image img;
+    img.load_bmp("../res/hello.bmp");
+    src::Texture texture;
+    texture.create(img);
+    img.destroy();
+
+    std::cout << texture.texture << std::endl;
 
     int Running = 1;
 
@@ -54,21 +57,27 @@ int main (int ArgCount, char **Args) {
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
         glOrtho(0.0f, WinWidth, WinHeight, 0.0f, -1.0f, 1.0f);
-
         glClearColor(1.f, 1.f, 1.f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT);
-        
+        glBindTexture(GL_TEXTURE_2D, texture.texture);
+        glEnable(GL_TEXTURE_2D);
         glTranslatef(0.0f, 0.0f, 0.0f);
         glBegin(GL_QUADS);
-        glColor3f(1.0f, 0.0f, 0.0f);
-        glVertex2i(100, 100);
-        glVertex2i(200, 100);
-        glVertex2i(200, 200);
-        glVertex2i(100, 200);
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTexCoord2f(0,1);
+        glVertex2i(0, 0);
+        glTexCoord2f(1,1);
+        glVertex2i(WinWidth, 0);
+        glTexCoord2f(1,0);
+        glVertex2i(WinWidth, WinHeight);
+        glTexCoord2f(0,0);
+        glVertex2i(0, WinHeight);
         glEnd();
 
         SDL_GL_SwapWindow(Window);
     }
+    
+    texture.destroy();
 
     return 0;
 }

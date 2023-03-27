@@ -24,10 +24,10 @@
             void destroy ( );
 
             /* Opengl texture id */
-            uint32_t oglid;
+            uint32_t texture;
 
             /* Save image width and height information for later calculations */
-            Vector2D wh;
+            int32_t width, height;
         };
 
     }; /* namespace src */
