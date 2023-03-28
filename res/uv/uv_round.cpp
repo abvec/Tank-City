@@ -27,19 +27,20 @@ int main ( ) {
 
     float const wepsilon = 1.0f / width;
     float const hepsilon = 1.0f / height;
-    
-    
+
+
     std::cout << "W Epsilon : " << wepsilon << std::endl;
     std::cout << "W Epsilon : " << hepsilon << std::endl;
 
     float tempu, tempv;
+    ifile >> tempu >> tempv;
 
     do {
-        ifile >> tempu >> tempv;
         ofile << tempu - fmod(tempu,wepsilon) << ' '
               << tempv - fmod(tempv,hepsilon) << std::endl;
+        ifile >> tempu >> tempv;
     } while(!ifile.eof());
-    
+
     ifile.close();
     ofile.close();
 
