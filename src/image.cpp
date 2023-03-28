@@ -28,6 +28,7 @@ namespace src {
             return Image::LoadError::BAD_BPP;
         }
 
+        int32_t num_pixels = (this)->width * (this)->height * ((this)->bpp / 8);
         (this)->pixels = new char[num_pixels];
 
         std::cout << num_pixels << std::endl;
