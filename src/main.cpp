@@ -68,19 +68,19 @@ int main (int ArgCount, char **Args) {
         glBegin(GL_QUADS);
 
         glColor3f(1.0f, 1.0f, 1.0f);
-        glTexCoord2f(0.0025f, 0.992188f);
+        glTexCoord2f(0.362690, 0.941415);
         glVertex2f(512.0f, 50.0f);
         
         glColor3f(1.0f, 1.0f, 1.0f);
-        glTexCoord2f(0.0325f, 0.992188f);
+        glTexCoord2f(0.395186, 0.941338);
         glVertex2f(1024.0f,50.0f);
         
         glColor3f(1.0f, 1.0f, 1.0f);
-        glTexCoord2f(0.0325f, 0.9375);
+        glTexCoord2f(0.362493, 0.99251);
         glVertex2f(1024.0f, 562.0f);
         
-        glColor3f(1.0f, 1.0f, 1.0f);S
-        glTexCoord2f(0.0025f, 0.9375);
+        glColor3f(1.0f, 1.0f, 1.0f);
+        glTexCoord2f(0.394989, 0.992441);
         glVertex2f(512.0f, 562.0f);
         
         glEnd();
